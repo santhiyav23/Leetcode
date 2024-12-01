@@ -1,0 +1,23 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        hs = {
+            ")" :"(",
+            "}" :"{",
+            "]" :"[",
+        }
+        stack = []
+
+        for c in s:
+            if c not in hs:
+                stack.append(c)
+            else:
+                if not stack:
+                    return False
+                else:
+                    popped = stack.pop()
+                    if popped != hs[c]:
+                        return False
+        return not stack
+                   
+
+        
