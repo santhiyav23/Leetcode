@@ -1,0 +1,9 @@
+class Solution:
+    def distributeCandies(self, candyType: List[int]) -> int:
+        types = len(candyType) // 2
+        print(types)
+        new = set(candyType)
+        res = 0
+        return min(len(new), types)
+        
+        
