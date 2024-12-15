@@ -1,0 +1,20 @@
+class Solution:
+    def shortestCompletingWord(self, licensePlate: str, words: List[str]) -> str:
+        license_counter = Counter(c.lower() for c in licensePlate if c.isalpha())
+        
+        
+        def is_completing_word(word):
+            word_counter = Counter(word)
+            
+            for char, count in license_counter.items():
+                if word_counter[char] < count:
+                    return False
+            return True
+
+        
+        words = sorted(words, key=len) 
+        for word in words:
+            if is_completing_word(word):
+                return word
+
+        return "" 
