@@ -1,0 +1,47 @@
+class Solution:
+    def canTransform(self, start: str, result: str) -> bool:
+        if len(start) == 1:
+            return False
+
+        
+        count_start_x, count_start_L, result_start_str, start_L_indexes, start_R_indexes = self.count_and_remove_x(start)
+        count_end_x, count_end_L, result_end_str, end_L_indexes, end_R_indexes = self.count_and_remove_x(result)
+
+        if count_start_x != count_end_x or count_start_L != count_end_L or result_start_str != result_end_str:
+            return False
+
+    
+        for i in range(len(start_L_indexes)):
+            if start_L_indexes[i] < end_L_indexes[i]:
+                return False
+
+        for i in range(len(start_R_indexes)):
+            if start_R_indexes[i] > end_R_indexes[i]:
+                return False
+        
+        return True
+
+
+ 
+    def count_and_remove_x(self, curr_str: str) -> tuple:
+        count_x = 0
+        count_L = 0
+        result_str = ""
+        L_indexes = []
+        R_indexes = []
+
+        for i in range(len(curr_str)):
+            curr_letter = curr_str[i]
+            if curr_letter == "X":
+                count_x += 1
+            else:
+                if curr_letter == "L":
+                    count_L += 1
+                    L_indexes.append(i)
+                else:
+                    # R
+                    R_indexes.append(i)
+                result_str += curr_letter
+
+        return count_x, count_L, result_str, L_indexes, R_indexes
+        
